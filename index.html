@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FRDM-K64F control</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/style.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+	<script type="text/javascript" src="/static/script.js"></script>
+</head>
+
+<body>
+    <h1>FRDM-K64F I/O</h1>
+	<button id="startButton" type="button" onclick="StartJsScript()">Update values</button>
+	    <div class="IO_box">
+			<h2>Analog Inputs</h2>
+			<p>A1: <span class="analogIn">...</span></p>
+			<p>A2: <span class="analogIn">...</span></p>
+			<p>A2: <span class="analogIn">...</span></p>
+			<p>A3: <span class="analogIn">...</span></p>
+			<p>A4: <span class="analogIn">...</span></p>
+			<p>A5: <span class="analogIn">...</span></p>
+		</div>
+		<div class="IO_box">
+			<h2>Digital Inputs</h2>
+			<p class="small_text">D0: used by serial RX</p>
+			<p class="small_text">D1: used by serial TX</p>
+			<p>D2: <span class="digitalIn">...</span></p>
+			<p>D3: <span class="digitalIn">...</span></p>
+			<p>D4: <span class="digitalIn">...</span></p>
+			<p>D5: <span class="digitalIn">...</span></p>
+			<p>D6: <span class="digitalIn">...</span></p>
+			<p>D7: <span class="digitalIn">...</span></p>
+		</div>
+		<div class="IO_box">
+			<h2>Digital Outputs</h2>
+			<form>
+				<input class="digitalOut" type="checkbox" name="DOut8" value="0" onclick="ChangeOutput(this.name,this.checked)" />D8<br /><br />
+				<input class="digitalOut" type="checkbox" name="DOut9" value="0" onclick="ChangeOutput(this.name,this.checked)" />D9<br /><br />
+				<input class="digitalOut" type="checkbox" name="DOut10" value="0" onclick="ChangeOutput(this.name,this.checked)" />D10<br /><br />
+				<input class="digitalOut" type="checkbox" name="DOut11" value="0" onclick="ChangeOutput(this.name,this.checked)" />D11<br /><br />
+				<input class="digitalOut" type="checkbox" name="DOut12" value="0" onclick="ChangeOutput(this.name,this.checked)" />D12<br /><br />
+				<input class="digitalOut" type="checkbox" name="DOut13" value="0" onclick="ChangeOutput(this.name,this.checked)" />D13<br /><br />
+			</form>
+		</div>
+</body>
+</html>

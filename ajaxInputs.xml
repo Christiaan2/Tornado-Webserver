@@ -1,0 +1,26 @@
+<ajaxInputs>
+	<analogInputs>
+		<AIn>...</AIn>
+		<AIn>...</AIn>
+		<AIn>...</AIn>
+		<AIn>...</AIn>
+		<AIn>...</AIn>
+		<AIn>...</AIn>
+	</analogInputs>
+	<DigitalInputs>
+		<DIn>...</DIn>
+		<DIn>...</DIn>
+		<DIn>...</DIn>
+		<DIn>...</DIn>
+		<DIn>...</DIn>
+		<DIn>...</DIn>
+	</DigitalInputs>
+	<DigitalOutputs>
+		<DOut>...</DOut>
+		<DOut>...</DOut>
+		<DOut>...</DOut>
+		<DOut>...</DOut>
+		<DOut>...</DOut>
+		<DOut>...</DOut>
+	</DigitalOutputs>
+</ajaxInputs>

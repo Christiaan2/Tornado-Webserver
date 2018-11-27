@@ -1,0 +1,26 @@
+h1 {
+	font-size: 175%;
+	color: rgb(45,45,45);
+	margin: 0 0 15px 0;
+}
+h2 {
+	font-size: 85%;
+	color: rgb(45,45,45);
+	margin: 5px 0 5px 0;
+}
+p, form, button {
+	font-size: 80%;
+	color: rgb(45,45,45);
+}
+.IO_box {
+	float: left;
+	margin: 0 20px 20px 0;
+	border: 1px solid rgb(45,45,45);
+	padding: 0 5px 0 5px;
+	width: 120px;
+	display: block;
+}
+.small_text {
+	font-size: 75%;
+	color: rgb(115,115,115);
+}

@@ -1,0 +1,26 @@
+<ajaxInputs>
+	<analogInputs>
+		<AIn>000.2158</AIn>
+		<AIn>1</AIn>
+		<AIn>2</AIn>
+		<AIn>3</AIn>
+		<AIn>4</AIn>
+		<AIn>5</AIn>
+	</analogInputs>
+	<DigitalInputs>
+		<DIn>High</DIn>
+		<DIn>Low</DIn>
+		<DIn>Low</DIn>
+		<DIn>High</DIn>
+		<DIn>High</DIn>
+		<DIn>Low</DIn>
+	</DigitalInputs>
+	<DigitalOutputs>
+		<DOut>High</DOut>
+		<DOut>Low</DOut>
+		<DOut>Low</DOut>
+		<DOut>High</DOut>
+		<DOut>High</DOut>
+		<DOut>High</DOut>
+	</DigitalOutputs>
+</ajaxInputs>
