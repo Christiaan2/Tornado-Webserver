@@ -38,7 +38,7 @@ function GetFRDMk64FIO() {
 			}
 		}
 	}
-	xmlhttp.open("GET", "ajaxInputs_random.xml"  + "?_t=" + Math.random(), true);
+	xmlhttp.open("GET", "ajaxInputs_random.xml" + "?t=" + Math.random() + changeOutput, true);
 	xmlhttp.send();
 	console.log(changeOutput)
 	changeOutput = "";
