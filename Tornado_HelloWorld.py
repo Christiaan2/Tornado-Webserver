@@ -11,6 +11,15 @@ class WebpageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
 
+class XMLHandler(tornado.web.RequestHandler):
+    def prepare(self):
+        print("!!!TEST!!!")
+        for i in self.get_query_arguments('DOut8'):
+            print(i)
+    def get(self,fname):
+        self.set_header("Content-Type", "text/xml")
+        self.render(fname)
+
 def make_app():
     settings = {
         'debug': True,
@@ -19,7 +28,7 @@ def make_app():
     handlers = [
         (r'/', MainHandler),
         (r'/webpage', WebpageHandler),
-        (r'/(ajaxInputs_random.xml)', tornado.web.StaticFileHandler, {'path': ''})
+        (r'/(ajaxInputs_random.xml)', XMLHandler)
     ]
     return tornado.web.Application(handlers, **settings)
 

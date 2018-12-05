@@ -15,7 +15,6 @@ function GetFRDMk64FIO() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4) { //&& this.states == 200) {
-			console.log(this.states)
 			if (this.responseXML != null) {
 				var xmlDoc = xmlhttp.responseXML;
 				var xmlAIn = xmlDoc.getElementsByTagName('AIn');
@@ -51,5 +50,5 @@ function ChangeOutput(name,value) {
 	else {
 		changeOutput = changeOutput.replace("&" + name + "=" + !value, "&" + name + "=" + value);
 	}
-	console.log(changeOutput)
+	GetFRDMk64FIO();
 }
