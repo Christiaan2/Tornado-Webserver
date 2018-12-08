@@ -6,9 +6,6 @@ import socket
 import xml.etree.ElementTree as ET
 import re
 
-tree = ET.parse('ajaxInputs_random.xml')
-root = tree.getroot()
-
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world!!!")
@@ -67,6 +64,10 @@ def make_app():
 if __name__ == "__main__":
     print('Webserver started')
     print('Ip adress of server: ' + socket.gethostbyname(socket.gethostname()))
+
+    tree = ET.parse('InitialInputs.xml') #Global variables
+    root = tree.getroot()
+
     app = make_app()
     app.listen(8888)
     tornado.ioloop.IOLoop.current().start()

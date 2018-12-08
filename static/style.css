@@ -24,3 +24,7 @@ p, form, button {
 	font-size: 75%;
 	color: rgb(115, 115, 115);
 }
+
+#WebsocketStatus {
+	color: rgb(200, 0, 0);
+}

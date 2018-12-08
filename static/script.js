@@ -13,6 +13,7 @@ function StartWebsocket() {
 		}
 	} else {
 		document.getElementById("WebsocketStatus").innerHTML = "WebSocket NOT supported by your Browser";
+		document.getElementById("WebsocketStatus").style.color = "rgb(200, 0, 0)";
 	}
 }
 
@@ -25,6 +26,7 @@ function ConnectWebsocket() {
 
 	ws.onopen = function(evt) {
 		document.getElementById("WebsocketStatus").innerHTML = "Connected";
+		document.getElementById("WebsocketStatus").style.color = "rgb(0, 200, 0)";
 		document.getElementById("startWebsocket").textContent = "Disconnect websocket";
 	}
 
@@ -56,6 +58,7 @@ function ConnectWebsocket() {
 
 	ws.onclose = function() {
 		document.getElementById("WebsocketStatus").innerHTML = "Not connected";
+		document.getElementById("WebsocketStatus").style.color = "rgb(200, 0, 0)";
 		document.getElementById("startWebsocket").textContent = "Connect websocket";
 	}
 }

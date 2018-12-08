@@ -1,11 +1,11 @@
 <ajaxInputs>
 	<analogInputs>
 		<AIn>0</AIn>
-		<AIn>1</AIn>
-		<AIn>2</AIn>
-		<AIn>3</AIn>
-		<AIn>4</AIn>
-		<AIn>5</AIn>
+		<AIn>0</AIn>
+		<AIn>0</AIn>
+		<AIn>0</AIn>
+		<AIn>0</AIn>
+		<AIn>0</AIn>
 	</analogInputs>
 	<DigitalInputs>
 		<DIn>Low</DIn>
