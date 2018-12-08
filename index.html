@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FRDM-K64F control</title>
+    <title>Arduino control</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="{{ static_url("style.css") }}"/>
@@ -10,8 +10,7 @@
 </head>
 
 <body>
-    <h1>FRDM-K64F I/O</h1>
-	<button id="startButton" type="button" onclick="StartJsScript()">Update values</button>
+    <h1>Arduino I/O</h1>
 	    <div class="IO_box">
 			<h2>Analog Inputs</h2>
 			<p>A1: <span class="analogIn">...</span></p>
@@ -42,6 +41,11 @@
 				<input class="digitalOut" type="checkbox" name="DOut12" value="0" onclick="ChangeOutput(this.name,this.checked)" />D12<br /><br />
 				<input class="digitalOut" type="checkbox" name="DOut13" value="0" onclick="ChangeOutput(this.name,this.checked)" />D13<br /><br />
 			</form>
+		</div>
+		<div class="IO_box">
+			<h2>Status Websocket</h2>
+			<p><span id="WebsocketStatus">Not connected</span></p>
+			<button id="startWebsocket" type="button" onclick="StartWebsocket()">Connect websocket</button><br /><br />
 		</div>
 </body>
 </html>

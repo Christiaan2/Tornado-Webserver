@@ -1,8 +1,10 @@
 import os
 import tornado.ioloop
 import tornado.web
+import tornado.websocket
 import socket
 import xml.etree.ElementTree as ET
+import re
 
 tree = ET.parse('ajaxInputs_random.xml')
 root = tree.getroot()
@@ -28,6 +30,27 @@ class XMLHandler(tornado.web.RequestHandler):
         self.set_header("Content-Type", "text/xml")
         self.write(ET.tostring(root))
 
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    clients = set()
+
+    def open(self):
+        self.clients.add(self)
+        print('[WS] New connection, ',len(self.clients),' client(s)')
+        self.write_message(ET.tostring(root))
+
+    def on_message(self, message):
+        index = [int(i) for i in re.findall(r'\d+', message)][0]
+        if message.find('true') >= 0:
+            root[2][index-8].text = 'High'
+        else:
+            root[2][index-8].text = 'Low'
+        
+        [client.write_message(ET.tostring(root)) for client in self.clients]
+    
+    def on_close(self):
+        self.clients.remove(self)
+        print('[WS] Connection closed, ',len(self.clients),' client(s)')
+
 def make_app():
     settings = {
         'debug': True,
@@ -36,7 +59,8 @@ def make_app():
     handlers = [
         (r'/', MainHandler),
         (r'/webpage', WebpageHandler),
-        (r'/(ajaxInputs_random.xml)', XMLHandler)
+        (r'/(ajaxInputs_random.xml)', XMLHandler),
+        (r'/ws', WebSocketHandler)
     ]
     return tornado.web.Application(handlers, **settings)
 

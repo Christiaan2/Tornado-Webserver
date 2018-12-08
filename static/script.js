@@ -1,22 +1,38 @@
-var changeOutput = "";
+var ws = null;
 
-function StartJsScript() {
-	//document.getElementById("startButton").style.display = "none";
-	var elems = document.getElementsByClassName("IO_box");
-	for (var i = 0; i < elems.length; i++) {
-	elems[i].style.display = "block";
+function StartWebsocket() {
+	if ("WebSocket" in window) {
+		if (ws === null) {
+			ConnectWebsocket();
+		} else {
+			if (ws.readyState == 3) {
+				ConnectWebsocket();
+			} else {
+				ws.close();
+			}
+		}
+	} else {
+		document.getElementById("WebsocketStatus").innerHTML = "WebSocket NOT supported by your Browser";
 	}
-	
-	GetFRDMk64FIO();
-	//setInterval(GetFRDMk64FIO,1000);
 }
 
-function GetFRDMk64FIO() {
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4) { //&& this.states == 200) {
-			if (this.responseXML != null) {
-				var xmlDoc = xmlhttp.responseXML;
+function ConnectWebsocket() {
+	if (window.location.protocol === "http:") {
+		ws = new WebSocket("ws://" + window.location.host + "/ws");
+	} else {
+		ws = new WebSocket("wss://" + window.location.host + "/ws");
+	}
+
+	ws.onopen = function(evt) {
+		document.getElementById("WebsocketStatus").innerHTML = "Connected";
+		document.getElementById("startWebsocket").textContent = "Disconnect websocket";
+	}
+
+	ws.onmessage = function(evt) {
+		if (typeof evt.data === 'string') {
+			parser = new DOMParser();
+			xmlDoc = parser.parseFromString(evt.data,"text/xml");
+			if (xmlDoc != null) {
 				var xmlAIn = xmlDoc.getElementsByTagName('AIn');
 				for (var i = 0; i < xmlAIn.length; i++) {
 					document.getElementsByClassName("analogIn")[i].innerHTML = xmlAIn[i].childNodes[0].nodeValue;
@@ -37,18 +53,13 @@ function GetFRDMk64FIO() {
 			}
 		}
 	}
-	xmlhttp.open("GET", "ajaxInputs_random.xml" + "?t=" + Math.random() + changeOutput, true);
-	xmlhttp.send();
-	console.log(changeOutput)
-	changeOutput = "";
+
+	ws.onclose = function() {
+		document.getElementById("WebsocketStatus").innerHTML = "Not connected";
+		document.getElementById("startWebsocket").textContent = "Connect websocket";
+	}
 }
 
 function ChangeOutput(name,value) {
-	if (changeOutput.search("name") == -1) {
-		changeOutput = "&" + name + "=" + value;
-	}
-	else {
-		changeOutput = changeOutput.replace("&" + name + "=" + !value, "&" + name + "=" + value);
-	}
-	GetFRDMk64FIO();
+	ws.send(name + "=" + value);
 }
