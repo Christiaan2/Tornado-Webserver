@@ -64,5 +64,5 @@ function ConnectWebsocket() {
 }
 
 function ChangeOutput(name,value) {
-	ws.send(name + "=" + value);
+	ws.send(JSON.stringify({"Name": name, "Value": value}));
 }

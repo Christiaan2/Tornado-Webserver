@@ -4,7 +4,7 @@ import tornado.web
 import tornado.websocket
 import socket
 import xml.etree.ElementTree as ET
-import re
+import json
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -36,8 +36,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.write_message(ET.tostring(root))
 
     def on_message(self, message):
-        index = [int(i) for i in re.findall(r'\d+', message)][0]
-        if message.find('true') >= 0:
+        m_json = json.loads(message)
+        index = int(m_json["Name"][4:])
+        if m_json["Value"]:
             root[2][index-8].text = 'High'
         else:
             root[2][index-8].text = 'Low'
