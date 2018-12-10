@@ -13,19 +13,6 @@ class WebpageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
 
-class XMLHandler(tornado.web.RequestHandler):
-    def prepare(self):
-        for i,elem in enumerate(data_json["DOut"]):
-            if self.get_query_arguments('DOut' + str(i+8)) != []:
-                print('DOut' + str(i+8) + '=' + str(self.get_query_argument('DOut' + str(i+8))))
-                if self.get_query_argument('DOut' + str(i+8)) == 'true':
-                    elem = 'High'
-                else:
-                    elem = 'Low'
-    def get(self,fname):
-        #self.set_header("Content-Type", "text/xml")
-        self.write(json.dumps(data_json))
-
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     clients = set()
 
@@ -56,7 +43,6 @@ def make_app():
     handlers = [
         (r'/', MainHandler),
         (r'/webpage', WebpageHandler),
-        (r'/(ajaxInputs_random.xml)', XMLHandler),
         (r'/ws', WebSocketHandler)
     ]
     return tornado.web.Application(handlers, **settings)
