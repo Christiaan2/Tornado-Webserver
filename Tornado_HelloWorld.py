@@ -3,7 +3,6 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 import socket
-import xml.etree.ElementTree as ET
 import json
 
 class MainHandler(tornado.web.RequestHandler):
@@ -16,16 +15,16 @@ class WebpageHandler(tornado.web.RequestHandler):
 
 class XMLHandler(tornado.web.RequestHandler):
     def prepare(self):
-        for i,elem in enumerate(root.iter('DOut')):
+        for i,elem in enumerate(data_json["DOut"]):
             if self.get_query_arguments('DOut' + str(i+8)) != []:
                 print('DOut' + str(i+8) + '=' + str(self.get_query_argument('DOut' + str(i+8))))
                 if self.get_query_argument('DOut' + str(i+8)) == 'true':
-                    elem.text = 'High'
+                    elem = 'High'
                 else:
-                    elem.text = 'Low'
+                    elem = 'Low'
     def get(self,fname):
-        self.set_header("Content-Type", "text/xml")
-        self.write(ET.tostring(root))
+        #self.set_header("Content-Type", "text/xml")
+        self.write(json.dumps(data_json))
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     clients = set()
@@ -33,17 +32,17 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         self.clients.add(self)
         print('[WS] New connection, ',len(self.clients),' client(s)')
-        self.write_message(ET.tostring(root))
+        self.write_message(json.dumps(data_json))
 
     def on_message(self, message):
         m_json = json.loads(message)
         index = int(m_json["Name"][4:])
         if m_json["Value"]:
-            root[2][index-8].text = 'High'
+            data_json["DOut"][index-8] = 'High'
         else:
-            root[2][index-8].text = 'Low'
+            data_json["DOut"][index-8] = 'Low'
         
-        [client.write_message(ET.tostring(root)) for client in self.clients]
+        [client.write_message(json.dumps(data_json)) for client in self.clients]
     
     def on_close(self):
         self.clients.remove(self)
@@ -66,8 +65,8 @@ if __name__ == "__main__":
     print('Webserver started')
     print('Ip adress of server: ' + socket.gethostbyname(socket.gethostname()))
 
-    tree = ET.parse('InitialInputs.xml') #Global variables
-    root = tree.getroot()
+    with open('InitialInputs.json') as file:
+        data_json = json.load(file) #Global variable
 
     app = make_app()
     app.listen(8888)

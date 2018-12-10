@@ -32,20 +32,19 @@ function ConnectWebsocket() {
 
 	ws.onmessage = function(evt) {
 		if (typeof evt.data === 'string') {
-			parser = new DOMParser();
-			xmlDoc = parser.parseFromString(evt.data,"text/xml");
-			if (xmlDoc != null) {
-				var xmlAIn = xmlDoc.getElementsByTagName('AIn');
-				for (var i = 0; i < xmlAIn.length; i++) {
-					document.getElementsByClassName("analogIn")[i].innerHTML = xmlAIn[i].childNodes[0].nodeValue;
+			var m_json = JSON.parse(evt.data);
+			if (m_json != null) {
+				var json_AIn = m_json.AIn;
+				for (var i = 0; i < json_AIn.length; i++) {
+					document.getElementsByClassName("analogIn")[i].innerHTML = json_AIn[i];
 				}
-				var xmlDIn = xmlDoc.getElementsByTagName('DIn');
-				for (var i = 0; i < xmlDIn.length; i++) {
-					document.getElementsByClassName("digitalIn")[i].innerHTML = xmlDIn[i].childNodes[0].nodeValue;
+				var json_DIn = m_json.DIn;
+				for (var i = 0; i < json_DIn.length; i++) {
+					document.getElementsByClassName("digitalIn")[i].innerHTML = json_DIn[i];
 				}
-				var xmlDOut = xmlDoc.getElementsByTagName('DOut');
-				for (var i = 0; i < xmlDOut.length; i++) {
-					if (xmlDOut[i].childNodes[0].nodeValue == "High") {
+				var json_DOut = m_json.DOut;
+				for (var i = 0; i < json_DOut.length; i++) {
+					if (json_DOut[i] == "High") {
 						document.getElementsByClassName("digitalOut")[i].checked = true;
 					}
 					else {
