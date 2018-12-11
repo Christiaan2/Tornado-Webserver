@@ -1,5 +1,5 @@
 {
 "AIn":[0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-"DIn":["Low", "Low", "Low", "Low", "Low", "Low"],
-"DOut":["Low", "Low", "Low", "Low", "Low", "Low"]
+"DIn":[false, false, false, false, false, false],
+"DOut":[false, false, false, false, false, false]
 }

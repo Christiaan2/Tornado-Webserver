@@ -24,10 +24,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         m_json = json.loads(message)
         index = int(m_json["Name"][4:])
-        if m_json["Value"]:
-            data_json["DOut"][index-8] = 'High'
-        else:
-            data_json["DOut"][index-8] = 'Low'
+        data_json["DOut"][index-8] = m_json["Value"]
         
         [client.write_message(json.dumps(data_json)) for client in self.clients]
     

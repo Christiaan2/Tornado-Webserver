@@ -40,16 +40,15 @@ function ConnectWebsocket() {
 				}
 				var json_DIn = m_json.DIn;
 				for (var i = 0; i < json_DIn.length; i++) {
-					document.getElementsByClassName("digitalIn")[i].innerHTML = json_DIn[i];
+					if (json_DIn[i]) {
+						document.getElementsByClassName("digitalIn")[i].innerHTML = "High";
+					} else {
+						document.getElementsByClassName("digitalIn")[i].innerHTML = "Low";
+					}
 				}
 				var json_DOut = m_json.DOut;
 				for (var i = 0; i < json_DOut.length; i++) {
-					if (json_DOut[i] == "High") {
-						document.getElementsByClassName("digitalOut")[i].checked = true;
-					}
-					else {
-						document.getElementsByClassName("digitalOut")[i].checked = false;
-					}
+					document.getElementsByClassName("digitalOut")[i].checked = json_DOut[i];
 				}
 			}
 		}
