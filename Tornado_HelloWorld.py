@@ -46,8 +46,10 @@ def make_app():
 
 def updateJson():
     print("Update json, elapsed time: ", time.time())
-    for i in range(6):
+    for i in range(len(data_json["AIn"])):
         data_json["AIn"][i] = np.round(5*np.random.random(),5)
+    for i in range(len(data_json["DIn"])):
+        data_json["DIn"][i] = np.random.random() > 0.5
     WebSocketHandler.update_clients()
 
 if __name__ == "__main__":
