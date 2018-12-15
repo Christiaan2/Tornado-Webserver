@@ -4,6 +4,8 @@ import tornado.web
 import tornado.websocket
 import socket
 import json
+import numpy as np
+import time
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -44,6 +46,12 @@ def make_app():
     ]
     return tornado.web.Application(handlers, **settings)
 
+def updateJson():
+    print("Update Json, elapsed time: ", time.time())
+    for i in range(6):
+        data_json["AIn"][i] = np.round(5*np.random.random(),5)
+
+
 if __name__ == "__main__":
     print('Webserver started')
     print('Ip adress of server: ' + socket.gethostbyname(socket.gethostname()))
@@ -53,6 +61,6 @@ if __name__ == "__main__":
 
     app = make_app()
     app.listen(8888)
+    tornado.ioloop.PeriodicCallback(updateJson,5000).start()
     tornado.ioloop.IOLoop.current().start()
-
 #Press Ctrl + f5 to completely refresh site in Chrome
