@@ -29,8 +29,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.clients.remove(self)
         print('[WS] Connection closed, ',len(self.clients),' client(s)')
 
-    def update_clients(self):
-        [client.write_message(json.dumps(data_json)) for client in self.clients]
+    @classmethod
+    def update_clients(cls):
+        [client.write_message(json.dumps(data_json)) for client in cls.clients]
 
 def make_app():
     settings = {
@@ -47,6 +48,7 @@ def updateJson():
     print("Update json, elapsed time: ", time.time())
     for i in range(6):
         data_json["AIn"][i] = np.round(5*np.random.random(),5)
+    WebSocketHandler.update_clients()
 
 if __name__ == "__main__":
     with open('InitialInputs.json') as file:
